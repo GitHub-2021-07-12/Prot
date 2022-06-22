@@ -60,7 +60,9 @@ class Main {
       console.log(error);
     }
     
-    this._display.textContent = `${this._point_user.lat}, ${this._point_user.long}`;
+    // this._display.textContent = `${this._point_user.lat}, ${this._point_user.long}`;
+    
+    this._display.innerHTML = `<a href='https://www.google.ru/maps/place/${this._point_user.lat},${this._point_user.long}'>${this._point_user.lat}, ${this._point_user.long}</a>`;
   }
 }
 
