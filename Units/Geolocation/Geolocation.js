@@ -27,7 +27,7 @@ function _geolocation_success(position) {
   //   long: position.coords.longitude,
   // };
   // _promise_resolve(position);
-  _promise_resolve(position.coords);
+  _promise_resolve(position);
 }
 
 

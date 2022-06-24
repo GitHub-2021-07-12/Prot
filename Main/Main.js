@@ -25,13 +25,19 @@ class Main {
   
   
   _point_user__display() {
-    let s = `<a href='https://www.google.ru/maps/place/${this._point_user.latitude},${this._point_user.longitude}'>Map</a><br>`;
+    let s = `<a href='https://www.google.ru/maps/place/${this._point_user.coords.latitude},${this._point_user.coords.longitude}'>Map</a><br>`;
     
-    for (let p in this._point_user) {
-      s += p + ': ' + this._point_user[p] + '<br>';
+    s += this._point_user.timestamp + '<br>';
+    
+    for (let p in this._point_user.coords) {
+      s += p + ': ' + this._point_user.coords[p] + '<br>';
     }
     
     this._display.innerHTML = s;
+    
+    // this._display.textContent = JSON.stringify(this._point_user, null, 2);
+    
+    // console.log(this._point_user);
   }
   
   
@@ -43,7 +49,7 @@ class Main {
     // this._display.addEventListener('pointerdown', () => this.refresh());
     
     Geolocation.position_watch((position) => {
-      this._point_user = position.coords;
+      this._point_user = position;
       this._point_user__display();
     });
   }
