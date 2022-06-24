@@ -40,6 +40,16 @@ function _promise_main(resolve, reject) {
 
 
 
-export async function getPosition() {
+export async function position_get() {
   return new Promise(_promise_main);
+}
+
+
+export function position_watch(callback) {
+  return navigator.geolocation.watchPosition(callback, null, options);
+}
+
+
+export function position_clearWatch(id) {
+  navigator.geolocation.clearWatch(id);
 }

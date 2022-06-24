@@ -24,24 +24,14 @@ class Main {
   
   
   
-  async _point_user__define() {
-    // let error = () => alert('Error');
-    // let options = {
-    //   enableHighAccuracy: true,
-    //   timeout: 5000,
-    // };
-    // let success = (position) => {
-    //   this._point_user.lat = position.coords.latitude;
-    //   this._point_user.long = position.coords.longitude;
-      
-    //   alert('Success');
-      
-    //   this._display.textContent = `${this._point_user.lat}, ${this._point_user.long}`;
-    // };
+  _point_user__display() {
+    let s = `<a href='https://www.google.ru/maps/place/${this._point_user.latitude},${this._point_user.longitude}'>Map</a><br>`;
     
-    // navigator.geolocation.getCurrentPosition(success, error, options);
+    for (let p in this._point_user) {
+      s += p + ': ' + this._point_user[p] + '<br>';
+    }
     
-    
+    this._display.innerHTML = s;
   }
   
   
@@ -50,7 +40,12 @@ class Main {
   init() {
     Geolocation.options.timeout = 5000;
     
-    this._display.addEventListener('pointerdown', () => this.refresh());
+    // this._display.addEventListener('pointerdown', () => this.refresh());
+    
+    Geolocation.position_watch((position) => {
+      this._point_user = position.coords;
+      this._point_user__display();
+    });
   }
   
   
@@ -58,7 +53,7 @@ class Main {
     this._display.setAttribute('refresh', true);
     
     try {
-      this._point_user = await Geolocation.getPosition();
+      this._point_user = await Geolocation.position_get();
     }
     catch (error) {
       alert(error);
@@ -68,13 +63,7 @@ class Main {
     
     // this._display.innerHTML = `<a href='https://www.google.ru/maps/place/${this._point_user.lat},${this._point_user.long}'>${this._point_user.lat}, ${this._point_user.long}</a>`;
     
-    let s = `<a href='https://www.google.ru/maps/place/${this._point_user.latitude},${this._point_user.longitude}'>Map</a><br>`;
-    
-    for (let p in this._point_user) {
-      s += p + ': ' + this._point_user[p] + '<br>';
-    }
-    
-    this._display.innerHTML = s;
+    this._point_user__display();
     
     this._display.removeAttribute('refresh');
   }
