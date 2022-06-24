@@ -49,20 +49,34 @@ class Main {
   
   init() {
     // Geolocation.options.timeout = 100;
+    
+    this._display.addEventListener('pointerdown', () => this.refresh());
   }
   
   
   async refresh() {
+    this._display.setAttribute('refresh', true);
+    
     try {
       this._point_user = await Geolocation.getPosition();
     }
     catch (error) {
-      console.log(error);
+      alert(error);
     }
     
     // this._display.textContent = `${this._point_user.lat}, ${this._point_user.long}`;
     
-    this._display.innerHTML = `<a href='https://www.google.ru/maps/place/${this._point_user.lat},${this._point_user.long}'>${this._point_user.lat}, ${this._point_user.long}</a>`;
+    // this._display.innerHTML = `<a href='https://www.google.ru/maps/place/${this._point_user.lat},${this._point_user.long}'>${this._point_user.lat}, ${this._point_user.long}</a>`;
+    
+    let s = `<a href='https://www.google.ru/maps/place/${this._point_user.latitude},${this._point_user.longitude}'>Map</a><br>`;
+    
+    for (let p in this._point_user) {
+      s += p + ': ' + this._point_user[p] + '<br>';
+    }
+    
+    this._display.innerHTML = s;
+    
+    this._display.removeAttribute('refresh');
   }
 }
 

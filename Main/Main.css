@@ -1,3 +1,7 @@
+a {
+  color: #fff;
+}
+
 body {
   margin: 0;
 }
@@ -14,6 +18,10 @@ html {
   box-sizing: border-box;
   height: 100vh;
   width: 100vw;
+}
+
+.Display[refresh] {
+  color: #afa;
 }
 
 .Display__point {

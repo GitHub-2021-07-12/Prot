@@ -9,23 +9,25 @@ let _promise_resolve = null;
 
 export let options = {
   enableHighAccuracy: true,
-  timeout: 5000,
+  maximumAge: 1000,
+  timeout: Infinity,
 };
 
 
 
 
-function _geolocation_error() {
-  _promise_reject();
+function _geolocation_error(error) {
+  _promise_reject(error);
 }
 
 
 function _geolocation_success(position) {
-  position = {
-    lat: position.coords.latitude,
-    long: position.coords.longitude,
-  };
-  _promise_resolve(position);
+  // position = {
+  //   lat: position.coords.latitude,
+  //   long: position.coords.longitude,
+  // };
+  // _promise_resolve(position);
+  _promise_resolve(position.coords);
 }
 
 
