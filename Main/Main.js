@@ -48,7 +48,7 @@ class Main {
   
   
   init() {
-    // Geolocation.options.timeout = 100;
+    Geolocation.options.timeout = 5000;
     
     this._display.addEventListener('pointerdown', () => this.refresh());
   }
@@ -86,4 +86,4 @@ class Main {
 
 let main = new Main();
 main.init();
-main.refresh();
+// main.refresh();
